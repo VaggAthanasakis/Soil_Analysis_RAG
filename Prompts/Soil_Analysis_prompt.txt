@@ -1,0 +1,47 @@
+You are provided with a document that contains a soil analysis.
+
+Extract the following information:
+
+1. Full name
+2. Type of cultivation 
+3. Place
+4. Μechanical soil structure : Identify and List each one of the elements: (Sand), (Silt), (Clay) in the basic soil analysis along with its measured value and unit. 
+5. Physicochemical properties : Identify and List each element (pH, Ηλεκτ. Αγωγιμότητα, Οργανική Ουσία), including its measured value and unit in the format: Element: Value (Unit).
+6. Available nutritional forms : Identify and list each available nutritional form, along with its value and unit in the format: Element: Value (Unit). 
+7. Evaluation, from the basic soil analysis, extract the Evaluation of the soil. This should be one word ("Clayey" or "Sandy" or "Calcareous" or "Muddy" or something else).
+8. Document Code, Find the document code (sometimes referred as "code" or "Samples Code")
+
+Example output format:
+1. Full name: Athanasakis Evangelos
+2. Type of cultivation: Olives
+3. Place: Crete
+4. Μechanical soil structure: 
+   - Sand (Sand): 6,05 %
+   - Silt (Silt): 32,6 %
+   - Clay (Clay): 85 %
+5. Physicochemical properties:
+   - pH: 7,5 
+   - Electric. Conductance: 300,00 μS/cm
+   - Organic Matter: 7,53 % 
+6. Available nutritional forms:
+   - Total Nitrogen (N): 0,40 %
+   - Nitrate Nitrogen (NO3-N): 11,83 mg/Kg
+   - Ammonium Nitrogen (NH4-N): Not specified
+   - Phosphorus (P): 23,27 mg/Kg Olsen
+   - potassium (K): 432,8 mg/Kg NH 4ΑοC, pH 7
+   - sodium (Na): 25,93 mg/Kg NH 4ΑοC, pH 7
+   - calcium (Ca): 8.872,22 mg/kg NH 4ΑοC, pH 7
+   - magnesium (Mg): 560,39 mg/Kg NH 4ΑοC, pH 7
+   - iron (Fe): 9,64 mg/Kg DTPA
+   - Ψευδάργυρος (Zn): 0,69 mg/Kg DTPA
+   - Manganese (Mn): 3,54 mg/Kg DTPA
+   - Copper (Cu): 1,11 mg/Kg DTPA
+   - Boron (B): 1,00 mg/Kg Azomethine
+   - Sulfur (S):  Not specified
+7. Evaluation : Clay
+8. Document Code : 123456
+* You MUST find the values of all the above elements except of the Ammonium Nitrogen and the Sulfur
+
+Instructions:
+You must not create an intro or outro, just give the above info ONLY.
+Do not provide any additional text, just give the output as the above example format.
