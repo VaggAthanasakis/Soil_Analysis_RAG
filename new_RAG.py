@@ -128,26 +128,26 @@ def text_translator(greek_text):
 ## main
 BaseLLM.predict = patched_predict
 
-#input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240436_Ζαννιάς-Κάμπος-Θ.Κώστας.pdf"
-#input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240438-zannias-kephales-bio.pdf" 
-#input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240440-kottas_midNYYf.pdf" 
+#input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240436_Ζαννιάς-Κάμπος-Θ.Κώστας.pdf"
+#input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240438-zannias-kephales-bio.pdf" 
+#input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240440-kottas_midNYYf.pdf" 
 
-#input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240440-kottas.pdf"
-#input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240445-zannias-beli.pdf" 
-input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/240437 Δούμα.pdf" # to Ca 
+#input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240440-kottas.pdf"
+#input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240445-zannias-beli.pdf" 
+input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/240437 Δούμα.pdf" # to Ca 
 
 
 ################################ Second PDF type ################################
  
-#input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/SoilAnalysis-Kasapakis_1_merge.pdf" # xalia
-#input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 1 20221103 114361 (1).pdf"
-# input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 2 20221103 114362 (1).pdf"
-# input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 7 20221103 114363 (1).pdf"
-# input_file_path = "/home/eathanasakis/Thesis/RAG_Query/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 9 20221103 114364 (1).pdf"
+#input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/SoilAnalysis-Kasapakis_1_merge.pdf" # xalia
+#input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 1 20221103 114361 (1).pdf"
+# input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 2 20221103 114362 (1).pdf"
+# input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 7 20221103 114363 (1).pdf"
+# input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 9 20221103 114364 (1).pdf"
 
 
-response_file = "/home/eathanasakis/Thesis/RAG_Query/outputs/RESPONSE.txt"
-text_output_file = ("/home/eathanasakis/Thesis/RAG_Query/outputs/TEST_PDF_TEXT.txt")
+response_file = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/outputs/RESPONSE.txt"
+text_output_file = ("/home/eathanasakis/Thesis/Soil_Analysis_RAG/outputs/TEST_PDF_TEXT.txt")
 
 
 # Detect if the PDF is scanned
