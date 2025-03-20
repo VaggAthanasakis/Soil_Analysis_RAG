@@ -1,20 +1,21 @@
 Available forms of nutrients:
     Identify and list each available nutritional form Mn (MAGANIO), Cu (Copper), B (Boron),
-    along with its value and unit in the format: Element: Value (Unit).
+    along with its value, unit and measurement method in the format: Element: Value (Unit) method.
 
 The output must be a python dictionary. 
 Example output format:
 {   
-    "Manganese (Mn)": "value mg/Kg",
-    "Copper (Cu)": "value mg/Kg",
-    "Boron (B)": "value mg/Kg"
+    "Manganese (Mn)": "value mg/Kg method",
+    "Copper (Cu)": "value mg/Kg method",
+    "Boron (B)": "value mg/Kg method"
 }
 
 * You MUST find the values of all the above elements 
 * The outputed dictionary must have ONLY these 3 key-value pairs
-
+* If a parameter is not present, replace its value strictly with null in order to produce valid json
 
 Instructions:
 You must not create an intro or outro, just give the dictionary ONLY.
 DO Not use the above values, it is just an example format.
 Output ONLY a python dictionary
+If you dont find the method. replace 'method' with 'null' (example: "Copper (Cu)": "value % null")

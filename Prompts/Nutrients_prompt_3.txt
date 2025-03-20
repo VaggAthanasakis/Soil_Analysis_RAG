@@ -1,20 +1,21 @@
 Available forms of nutrients:
     Identify and list each available nutritional form Mg (Magnesium), Fe (Iron), Zn (Zinc),
-    along with its value and unit in the format: Element: Value (Unit).
+    along with its value, unit and measurement method in the format: Element: Value (Unit) method.
 
 The output must be a python dictionary. 
 Example output format:
 {   
-    "magnesium (Mg)": "value mg/Kg",
-    "iron (Fe)": "value mg/Kg",
-    "zinc (Zn)": "value mg/Kg"
+    "magnesium (Mg)": "value mg/Kg method",
+    "iron (Fe)": "value mg/Kg method",
+    "zinc (Zn)": "value mg/Kg method"
 }
 
 * You MUST find the values of all the above elements 
 * The outputed dictionary must have ONLY these 3 key-value pairs
-
+* If a parameter is not present, replace its value strictly with null in order to produce valid json
 
 Instructions:
 You must not create an intro or outro, just give the dictionary ONLY.
 DO Not use the above values, it is just an example format.
 Output ONLY a python dictionary
+If you dont find the method. replace 'method' with 'null' (example: "iron (Fe)": "value % null")

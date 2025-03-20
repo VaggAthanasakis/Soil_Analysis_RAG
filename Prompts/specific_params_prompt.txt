@@ -3,8 +3,8 @@ Parameters: (C.E.C): Cation exchange capacity, (Relationship C/N), (E.S.P): Degr
 The output must be a python dictionary. 
 Example output format:
 {   
-    "C.E.C": "value cmolc/kg",
-    "Relationship C/N": value,
+    "C.E.C": "value cmolc/kg method",
+    "Relationship C/N": "value",
     "E.S.P": "value %",
     "SAR": "value"
 
@@ -12,8 +12,9 @@ Example output format:
 
 * You MUST find the values of all the above elements 
 * The outputed dictionary must have ONLY these 4 key-value pairs
-
+* If a parameter is not present, replace its value strictly with null in order to produce valid json
 
 Instructions:
 You must not create an intro or outro, just give the dictionary ONLY.
 DO Not use the above values, it is just an example format.
+If you dont find the method, replace 'method' with 'null' (example: "C.E.C": "value cmolc/kg null")

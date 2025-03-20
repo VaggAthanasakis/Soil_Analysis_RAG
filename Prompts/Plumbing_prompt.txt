@@ -3,18 +3,18 @@ Plumbing Section: Identify and List each one of the elements: (Soil humidity), (
 
 The output must be a python dictionary. 
 Example output format:
-{   
-    "Soil humidity": "value %"
+{
+    "Soil humidity": "value %",
     "SP": "value %",
     "PWP": "value %",
     "FC": "value %",
     "Water Available" : "value %",
-    "Phenomenon Special Weight": "value g/cm^2"
+    "Phenomenon Special Weight": "value g/cm^3"
 }
 
 * You MUST find the values of all the above elements 
 * The outputed dictionary must have ONLY these 6 key-value pairs
-
+* If a parameter is not present, replace its value strictly with null in order to produce valid json
 
 Instructions:
 You must not create an intro or outro, just give the dictionary ONLY.

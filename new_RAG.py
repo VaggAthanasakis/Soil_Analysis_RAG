@@ -20,7 +20,10 @@ from langdetect import detect
 import json
 import os
 import re
-from huggingface_hub import login
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+import asyncio
+from llama_index import SimpleDirectoryReader
 
 
 
@@ -29,22 +32,15 @@ from huggingface_hub import login
 # Converts the pdf pages to images and then performs OCR on each page
 # in order to extract the text
 
-# def extract_text_from_scanned_pdf(file_path):
-#     pages = convert_from_path(file_path, dpi=600)  # Convert PDF pages to images
-#     extracted_text = ""
-    
-#     for page in pages:
-#         page_text = pytesseract.image_to_string(page)  # Perform OCR on each page
-#         extracted_text += f"{page_text}\n"             # Add the text to the output
-    
-#     return extracted_text
-
-# Extract only he second page
 def extract_text_from_scanned_pdf(file_path):
     pages = convert_from_path(file_path, dpi=600)  # Convert PDF pages to images
-    if pages:
-        return pytesseract.image_to_string(pages[1])  # Perform OCR on only the first page
-    return ""
+    extracted_text = ""
+    
+    for page in pages:
+        page_text = pytesseract.image_to_string(page)  # Perform OCR on each page
+        extracted_text += f"{page_text}\n"             # Add the text to the output
+    
+    return extracted_text
 
 
 # Function to detect if the PDF is scanned or not
@@ -85,25 +81,15 @@ def split_text(text, max_length=2000):
     segments.append(text)  # Add any remaining text as the last segment
     return segments
 
-def preprocess_greek_numbers(text):
-    # Convert Greek format numbers (X.XXX,XX to X,XXX.XX)
+# Convert Greek format numbers (X.XXX,XX to X,XXX.XX)
+def preprocess_greek_numbers(text):   
     return re.sub(
         r'(\d{1,3}(?:\.\d{3})*)(,)(\d+)',
         lambda match: match.group(1).replace('.', ',') + '.' + match.group(3),
         text
     )
 
-# Function that translates each chunk from greek to english
-# def translate_text_in_chunks(text, source_lang='auto', target_lang='en'):
-#     segments = split_text(text)
-#     translated_segments = []
 
-#     for segment in segments:
-#         translated_text = GoogleTranslator(source=source_lang, target=target_lang).translate(segment)
-#         translated_segments.append(translated_text)
-
-#     # Join all translated segments into a single text
-#     return ' '.join(translated_segments)
 
 def translate_text_in_chunks(text, source_lang='auto', target_lang='en'):
 
@@ -125,6 +111,65 @@ def text_translator(greek_text):
    
     return translated_text
 
+#############################################################
+async def async_generate(chain, chunk, chunk_id):
+    """Asynchronously generates corrected text for a given chunk and streams progress."""
+    print(f"🔹 Processing chunk {chunk_id + 1}...")
+    response = await asyncio.to_thread(chain.generate, [{"text": chunk}])  # Runs in separate thread
+    corrected_text = response.generations[0][0].text
+    #print(f"✅ Chunk {chunk_id + 1} completed:\n{chunk[:200]}\n =-=-=-=-= \n{corrected_text[:200]}...\n====================================\n")  # Print a preview
+    return corrected_text
+
+
+# postprocess
+async def postprocess_extracted_text(extracted_text):
+    """
+    Processes extracted text in parallel using async LLaMA calls.
+    - Uses overlapping chunks for better context.
+    - Streams per-chunk output.
+    """
+
+    # Define a structured prompt for the model
+    prompt_template = PromptTemplate(
+        input_variables=["text"],
+        template=(
+            "You are a professional text corrector and formatter specializing in "
+            "Greek technical reports concerning soil analysis. Your task is to clean, format, and correct the extracted text while "
+            "preserving its structure and its original meaning and without removing any information. You have to consider that "
+            "most of the information was extracted from tables and the information should be structured in appropriate columns where applicable\n\n"
+            "**Instructions:**\n"
+            "- Do NOT remove any sections or numerical data.\n"
+            "- Fix any **missing spaces** or **merged words**.\n"
+            "- Properly **format section headers, tables, and data**.\n"
+            "- Ensure **scientific units (%, mg/Kg, g/cm³) are correctly placed**.\n"
+            "- Ensure **scientific names and acronyms (i.e. N, Fe, NO3-N, CaCO3) are corrected and preserved"
+            "- Ensure **the measurement methodology is identified and associated to the type of measurement and their scientific units"
+            "- Separate values from descriptions **for better readability**.\n"
+            "- Keep the original technical terms in **Greek** without translation.\n\n"
+            "**Extracted Text:**\n{text}\n\n"
+            "**Corrected and Formatted Text (DO NOT OMIT ANYTHING):**"
+        )
+    )
+    print("[INFO] Splitting text into chunks with overlap...")
+    #chunks = split_text(extracted_text, chunk_size=800, overlap=50)
+    chunks = split_text(extracted_text)
+
+    # Define LangChain LLMChain
+    #llm = OllamaLLM(model="llama3.1:8b", temperature = 0)
+    llm = OllamaLLM(model="llama3.3", temperature=0)
+    chain = LLMChain(llm=llm, prompt=prompt_template)
+
+    print("[INFO] Processing chunks asynchronously...")
+
+    # Run all chunks asynchronously
+    corrected_chunks = await asyncio.gather(*(async_generate(chain, chunk, i) for i, chunk in enumerate(chunks)))
+
+    corrected_text = "\n".join(corrected_chunks)
+    print("[INFO] Completed text correction.\n")
+    return corrected_text
+
+
+
 ## main
 BaseLLM.predict = patched_predict
 
@@ -135,6 +180,7 @@ BaseLLM.predict = patched_predict
 #input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240440-kottas.pdf"
 #input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/Soilanalysis-38-Zannias/240445-zannias-beli.pdf" 
 input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/240437 Δούμα.pdf" # to Ca 
+
 
 
 ################################ Second PDF type ################################
@@ -148,6 +194,7 @@ input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_An
 
 response_file = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/outputs/RESPONSE.txt"
 text_output_file = ("/home/eathanasakis/Thesis/Soil_Analysis_RAG/outputs/TEST_PDF_TEXT.txt")
+corrected_text_file = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/outputs/GREEK_CORRECTED.txt"
 
 
 # Detect if the PDF is scanned
@@ -162,39 +209,34 @@ if is_pdf_scanned(input_file_path):
 translated_output_file = "outputs/Translated.txt"
 greek_output_file = "outputs/Greek.txt"
 
-# with pdfplumber.open(input_file_path) as pdf:
-#     full_text = ""
-#     for page in pdf.pages:
-#         full_text += page.extract_text()  # Extracts text page-by-page
-
-# Second page only
 with pdfplumber.open(input_file_path) as pdf:
-    full_text = pdf.pages[1].extract_text()  # Extract only the first page
+    full_text = ""
+    for page in pdf.pages:
+        full_text += page.extract_text()  # Extracts text page-by-page
+
+# full_text = ""
+# with open(input_file_path, "r", encoding="utf-8") as file:
+#     full_text = file.read()  # Reads the entire file at once
 
 
 pathlib.Path(greek_output_file).write_bytes(full_text.encode())
 
-# documents = SimpleDirectoryReader(
-#     input_files=[input_file_path]).load_data()
+corrected_text = asyncio.run(postprocess_extracted_text(full_text))
 
+pathlib.Path(corrected_text_file).write_bytes(corrected_text.encode())
 
 
 # Check if we have to translate the text
-if (detect(full_text) != 'en'):
+if (detect(corrected_text) != 'en'):
     print("\nTranslating the text..")
-    translated_text = text_translator(full_text)
+    translated_text = text_translator(corrected_text)
 else:
-    translated_text = full_text
+    translated_text = corrected_text
 
 pathlib.Path(translated_output_file).write_bytes(translated_text.encode())
 
-# documents = SimpleDirectoryReader(
-#     input_files=[translated_output_file]).load_data()
-
 documents = [Document(text=translated_text)]
 
-# documents = SimpleDirectoryReader(
-#     input_files=[translated_output_file]).load_data()
 
 
 
@@ -240,12 +282,18 @@ combined_results = {}
 # Specify the splitter
 splitter = SentenceSplitter(chunk_size=700)
 
+
+
 #  This is a class from the llama_index library that represents a vector store index for efficient retrieval
 #  of documents based on their semantic similarity.
 vector_store_index = VectorStoreIndex.from_documents(documents, splitter=splitter)   
 
 # Build the query engine from the vector store index
 query_engine_vector_index = vector_store_index.as_query_engine()
+
+
+#query_engine = vector_store_index.as_query_engine(llm=llm, similarity_top_k=5, similarity_threshold=0.7)
+
 
 # Process each prompt and merge results
 max_retries = 3  # Maximum number of retries per prompt
@@ -254,16 +302,12 @@ for prompt in prompts:
     for attempt in range(max_retries):
         response = query_engine_vector_index.query(prompt)
         print("\n",response)
-        # response_dict = json.loads(str(response).replace("'", '"'))
-        # combined_results.update(response_dict)
         # Convert string response to dictionary
         try:
             response_dict = json.loads(str(response).replace("'", '"'))
             combined_results.update(response_dict)
             break  # Exit retry loop if successful
         except json.JSONDecodeError as e:
-            #print(f"Attempt {attempt + 1} failed for prompt: {prompt[:50]}...")
-            #print(e.__context__)
             if attempt == max_retries - 1:
                 print(f"Skipping prompt: {prompt[:50]} after {max_retries} attempts.")
 
