@@ -4,18 +4,20 @@ Plumbing Section: Identify and List each one of the elements: (Soil humidity), (
 The output must be a python dictionary. 
 Example output format:
 {
-    "Soil humidity": "value %",
-    "SP": "value %",
-    "PWP": "value %",
-    "FC": "value %",
-    "Water Available" : "value %",
-    "Phenomenon Special Weight": "value g/cm^3"
+    "Soil humidity": "value unit method",
+    "SP": "value unit method",
+    "PWP": "value unit method",
+    "FC": "value unit method",
+    "Water Available" : "value unit method",
+    "Phenomenon Special Weight": "value unit method"
 }
 
 * You MUST find the values of all the above elements 
 * The outputed dictionary must have ONLY these 6 key-value pairs
-* If a parameter is not present, replace its value strictly with null in order to produce valid json
+* If a parameter is not present, replace its value, unit and method strictly with null in order to produce valid json
 
 Instructions:
 You must not create an intro or outro, just give the dictionary ONLY.
 DO Not use the above values, it is just an example format.
+If you dont find the method, replace 'method' with 'null' (example: "FC": "value unit null")
+If you dont find the unit, replace 'unit' with 'null' (example: "FC": "value null method")

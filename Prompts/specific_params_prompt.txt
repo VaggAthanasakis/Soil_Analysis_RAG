@@ -1,20 +1,22 @@
-Parameters: (C.E.C): Cation exchange capacity, (Relationship C/N), (E.S.P): Degree of alkaline, (S.A.R):Sodium absorption ratio
+Identify and list each available Parameter: (C.E.C): Cation exchange capacity, (Relationship C/N), (E.S.P): Degree of alkaline, (S.A.R):Sodium absorption ratio
+along with its value, unit and measurement method in the format: Element: Value (Unit) method.
 
 The output must be a python dictionary. 
 Example output format:
 {   
-    "C.E.C": "value cmolc/kg method",
-    "Relationship C/N": "value",
-    "E.S.P": "value %",
-    "SAR": "value"
+    "C.E.C": "value unit method",
+    "Relationship C/N": "value unit method",
+    "E.S.P": "value unit method",
+    "SAR": "value unit method"
 
 }
 
 * You MUST find the values of all the above elements 
 * The outputed dictionary must have ONLY these 4 key-value pairs
-* If a parameter is not present, replace its value strictly with null in order to produce valid json
+* If a parameter is not present, replace its value, unit and method strictly with null in order to produce valid json
 
 Instructions:
 You must not create an intro or outro, just give the dictionary ONLY.
 DO Not use the above values, it is just an example format.
-If you dont find the method, replace 'method' with 'null' (example: "C.E.C": "value cmolc/kg null")
+If you dont find the method, replace 'method' with 'null' (example: "C.E.C": "value unit null")
+If you dont find the unit, replace 'unit' with 'null' (example: "C.E.C": "value null method")
