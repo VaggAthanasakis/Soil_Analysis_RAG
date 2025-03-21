@@ -2,7 +2,7 @@ Available forms of nutrients:
     Identify and list each available nutritional form Mn (MAGANIO), Cu (Copper), B (Boron),
     along with its value, unit and measurement method in the format: Element: Value (Unit) method.
 
-The output must be a python dictionary. 
+The output must ONLY be a raw python dictionary. 
 Example output format:
 {   
     "Manganese (Mn)": "value unit method",
@@ -13,6 +13,9 @@ Example output format:
 * You MUST find the values of all the above elements 
 * The outputed dictionary must have ONLY these 3 key-value pairs
 * If a parameter is not present, replace its value, unit and method strictly with null in order to produce valid json
+
+Note:
+    method could be: DTPA, azomethin, Meth Soil Anal.p3 ch 24 ISO 22036:2008, Meth Soil Anal.p3 ch 26 ISO 22036:2008, Meth Soil Anal.p3 ch 21 ISO 22036:2008 or else
 
 Instructions:
 You must not create an intro or outro, just give the dictionary ONLY.

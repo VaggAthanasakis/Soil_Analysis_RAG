@@ -2,6 +2,7 @@ Physicochemical properties :
     Identify and List each element (pH, Elect. Conduction, Organic Matter, Caco3,Active CaCo3), including its measured value, unit and measurement method in the format: Element: Value (Unit) method.
     The output must be a python strictly ONLY a raw dictionary. 
 
+The output must ONLY be a raw python dictionary. 
 Example output format:
 {   
     "pH": "value unit method" ,
@@ -12,11 +13,11 @@ Example output format:
 }
 
 examples of unit: %KB, %, μS/cm and more
-examples of method: CORRESPORTY PASTS, Saturation WATER, Volumetrically, C2O4(NH4)2 and more
 
 Note:
-    If unit = '% KB' convert it to '%KB' 
-
+    '% KB' convert it to '%KB' 
+    method could be: Saturation pasts, Saturation Water, Volumetically, liquid oxidation, C2O4 (NH4) 2,
+                     ISO 10390:2005, ISO 14235:1998, ISO 10693:1995, Meth Soil Anal.p3 ch 14, Meth Soil Anal.p3 ch 15  or something else
 
 
 * You MUST find the values of all the above elements 

@@ -5,7 +5,7 @@ Identify and list each available Parameter:
     (S.A.R): Sodium absorption ratio
 along with its value, unit and measurement method in the format: Element: Value (Unit) method.
 
-The output must be a python dictionary. 
+The output must ONLY be a raw python dictionary. 
 Example output format:
 {   
     "C.E.C": "value unit method",

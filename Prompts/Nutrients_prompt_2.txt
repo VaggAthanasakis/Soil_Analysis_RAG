@@ -2,7 +2,7 @@ Available forms of nutrients:
     Identify and list each available nutritional form K (Potassium), Na (Sodium), Ca (Calcium),
     along with its value, unit and measurement method in the format: Element: Value (Unit) method.
 
-The output must be a python dictionary. 
+The output must ONLY be a raw python dictionary. 
 Example output format:
 {   
     "potassium (K)": "value unit method",
@@ -14,6 +14,10 @@ Example output format:
 * You MUST find the values of all the above elements 
 * The outputed dictionary must have ONLY these 3 key-value pairs
 * If a parameter is not present, replace its value, unit and method strictly with null in order to produce valid json
+
+Note:
+    method could be: NH4AOC pH 7, Meth Soil Anal.p3 ch 14 ISO 22036:2008, Meth Soil Anal.p3 ch 19 ISO 22036:2008 or something else
+
 
 Instructions:
 You must not create an intro or outro, just give the dictionary ONLY.

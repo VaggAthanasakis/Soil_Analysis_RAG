@@ -1,33 +1,157 @@
 {
-    "Soil humidity": "6.09 %",
-    "SP": "59.62 %",
-    "Phenomenon Special Weight": "1.27 g/cm3",
-    "PWP": "14.90 %",
-    "FC": "32.79 %",
-    "Water Available": "17.89 %",
-    "Sand": "8.34 %",
-    "Silt": "27.37 %",
-    "Clay": "64.29 %",
-    "Evaluation": "Clayey",
-    "PH": "7.85",
-    "Elect. Conduct": "281.00 µs/cm",
-    "Organic Substance": "2.54 % liquid oxidation",
-    "Total Caco3": "12.50 % CB. Volumetically",
-    "Active CaCo3": "2.68 % KB C2O4 (NH4)2",
-    "Total Nitrogen (N)": "0.15 %",
-    "Nitrate Nitrogen (NO3-N)": "4.72 mg/kg",
-    "Phosphorus (P)": "4.35 mg/kg",
-    "potassium (K)": "207.94 mg/kg",
-    "sodium (Na)": "25.67 mg/kg",
-    "calcium (Ca)": "7583.55 mg/kg",
-    "magnesium (Mg)": "780.85 mg/kg",
-    "iron (FE)": "6.92 mg/kg",
-    "zinc (Zn)": "0.29 mg/kg",
-    "Manganese (Mn)": "1.25 mg/kg",
-    "Copper (Cu)": "1.88 mg/kg",
-    "Boron (B)": "0.93 mg/kg",
-    "C.E.C": "44.98 cmolc/kg",
-    "Relationship C/N": "8.29",
-    "E.S.P": "0.25 %",
-    "S.A.R": "0.02"
+    "Soil humidity": {
+        "value": "6.09",
+        "unit": "%",
+        "method": "null"
+    },
+    "SP": {
+        "value": "59.62",
+        "unit": "%",
+        "method": "null"
+    },
+    "Phenomenon Special Weight": {
+        "value": "1.27",
+        "unit": "g/cm3",
+        "method": "null"
+    },
+    "PWP": {
+        "value": "14.90",
+        "unit": "%",
+        "method": "null"
+    },
+    "FC": {
+        "value": "32.79",
+        "unit": "%",
+        "method": "null"
+    },
+    "Water Available": {
+        "value": "17.89",
+        "unit": "%",
+        "method": "null"
+    },
+    "Sand": {
+        "value": "8.34",
+        "unit": "%",
+        "method": "bouyoucos"
+    },
+    "Silt": {
+        "value": "27.37",
+        "unit": "%",
+        "method": "bouyoucos"
+    },
+    "Clay": {
+        "value": "64.29",
+        "unit": "%",
+        "method": "bouyoucos clay Clay heavy ground"
+    },
+    "Evaluation": {
+        "value": "Clayey",
+        "unit": "null",
+        "method": "null"
+    },
+    "pH": {
+        "value": "7.85",
+        "unit": "null",
+        "method": "CORRESPORTY PASTS"
+    },
+    "Elect. Conductance": {
+        "value": "281.00",
+        "unit": "µs/cm",
+        "method": "KORESMOU WATER"
+    },
+    "Organic Matter": {
+        "value": "2.54",
+        "unit": "%",
+        "method": "liquid oxidation"
+    },
+    "Caco3": {
+        "value": "12.50",
+        "unit": "%KB",
+        "method": "Volumetically"
+    },
+    "Active CaCo3": {
+        "value": "2.68",
+        "unit": "%KB",
+        "method": "C2O4 (NH4) 2"
+    },
+    "Total Nitrogen (N)": {
+        "value": "0.15",
+        "unit": "%",
+        "method": "Kjeldahl"
+    },
+    "Nitrate Nitrogen (NO3-N)": {
+        "value": "4.72",
+        "unit": "mg/kg",
+        "method": "1N kcl"
+    },
+    "Phosphorus (P)": {
+        "value": "4.35",
+        "unit": "mg/kg",
+        "method": "olsen"
+    },
+    "potassium (K)": {
+        "value": "207.94",
+        "unit": "mg/kg",
+        "method": "NH4AOC, pH 7"
+    },
+    "sodium (Na)": {
+        "value": "25.67",
+        "unit": "mg/kg",
+        "method": "NH4AOC, PH 7"
+    },
+    "calcium (Ca)": {
+        "value": "7583.55",
+        "unit": "mg/kg",
+        "method": "NH4AOC, pH 7"
+    },
+    "magnesium (Mg)": {
+        "value": "780.85",
+        "unit": "mg/kg",
+        "method": "NH4AOC pH 7"
+    },
+    "iron (Fe)": {
+        "value": "6.92",
+        "unit": "mg/kg",
+        "method": "DTPA"
+    },
+    "zinc (Zn)": {
+        "value": "0.29",
+        "unit": "mg/kg",
+        "method": "DTPA"
+    },
+    "Manganese (Mn)": {
+        "value": "1.25",
+        "unit": "mg/kg",
+        "method": "DTPA"
+    },
+    "Copper (Cu)": {
+        "value": "1.88",
+        "unit": "mg/kg",
+        "method": "DTPA"
+    },
+    "Boron (B)": {
+        "value": "0.93",
+        "unit": "mg/kg",
+        "method": "azomethin"
+    },
+    "C.E.C": {
+        "value": "44.98",
+        "unit": "cmolc/kg",
+        "method": "computing"
+    },
+    "Relationship C/N": {
+        "value": "8.29",
+        "unit": "null",
+        "method": "null"
+    },
+    "E.S.P": {
+        "value": "0.25",
+        "unit": "%",
+        "method": "null"
+    },
+    "S.A.R": {
+        "value": "null",
+        "unit": "null",
+        "method": "null"
+    }
 }

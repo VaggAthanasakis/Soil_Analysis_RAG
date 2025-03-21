@@ -377,7 +377,7 @@ raw_documents = [Document(text=translated_raw_text)]
 corrected_documents = [Document(text=translated_corrected_text)]
 
 # load the LLM that we are going to use
-llm = OllamaLLM(model="llama3.1:8b", temperature = 0.1)
+llm = OllamaLLM(model="llama3.1:8b", temperature = 0.2)
 #llm = OllamaLLM(model="llama3.3:latest", temperature = 0.1)
 
 
@@ -446,7 +446,7 @@ query_engine_for_nutrients = vector_store_nutrients.as_query_engine()
 
 
 # Process each prompt and merge results
-max_retries = 3  # Maximum number of retries per prompt
+max_retries = 5  # Maximum number of retries per prompt
 
 for prompt in prompts:
     for attempt in range(max_retries):

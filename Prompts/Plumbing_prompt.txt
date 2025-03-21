@@ -1,7 +1,7 @@
 Plumbing Section: Identify and List each one of the elements: (Soil humidity), (SP), (Phenomenon Special Weight), (PWP), (FC), (Water Available)
    in the basic soil analysis along with its measured value and unit. 
 
-The output must be a python dictionary. 
+The output must ONLY be a raw python dictionary. 
 Example output format:
 {
     "Soil humidity": "value unit method",
