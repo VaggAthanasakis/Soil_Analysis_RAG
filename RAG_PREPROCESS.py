@@ -104,8 +104,6 @@ def split_postprocess_text(text, chunk_size=512, overlap=50):
     return chunks
 
 
-
-
 # Convert Greek format numbers (X.XXX,XX to X,XXX.XX)
 def preprocess_greek_numbers(text):   
     return re.sub(
@@ -113,7 +111,6 @@ def preprocess_greek_numbers(text):
         lambda match: match.group(1).replace('.', ',') + '.' + match.group(3),
         text
     )
-
 
 
 def translate_text_in_chunks(text, source_lang='auto', target_lang='en'):
@@ -286,6 +283,24 @@ def postprocess_extracted_text(extracted_text):
     print("[INFO] Completed text correction.\n")
     return corrected_text
 
+# transforms the json in order to properly stored in the DataBase
+def transform_json(old_json):
+    new_json = {}
+    for key, value in old_json.items():
+        # If the value is None or a string representing "null", assign all fields to None.
+        if value is None or (isinstance(value, str) and value.strip().lower() == "null"):
+            new_json[key] = {"value": None, "unit": None, "method": None}
+        else:
+            # Split the string into tokens by whitespace.
+            tokens = value.split()
+            # Use tokens to fill in the new dictionary fields.
+            new_json[key] = {
+                "value": tokens[0] if len(tokens) > 0 else None,
+                "unit": tokens[1] if len(tokens) > 1 else None,
+                "method": " ".join(tokens[2:]) if len(tokens) > 2 else None
+            }
+    return new_json
+
 
 ## main
 BaseLLM.predict = patched_predict
@@ -302,7 +317,6 @@ input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_An
 
 ################################ Second PDF type ################################
  
-#input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/SoilAnalysis-Kasapakis_1_merge.pdf" # xalia
 #input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 1 20221103 114361 (1).pdf"
 # input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 2 20221103 114362 (1).pdf"
 # input_file_path = "/home/eathanasakis/Thesis/Soil_Analysis_RAG/Resources/Soil_Analysis_Resources/ΕΔΑΦΟΣ ΤΟΠΟΘ ΚΑΣΑΠΑΚΗΣ/ΕΔΑΦΟΣ ΤΟΠΟΘ 7 20221103 114363 (1).pdf"
@@ -350,21 +364,21 @@ pathlib.Path(corrected_text_file).write_bytes(corrected_text.encode())
 # Check if we have to translate the text
 if (detect(corrected_text) != 'en'):
     print("\nTranslating the text..")
-    translated_nutrient_text = text_translator(full_text)
-    translated_info_text = text_translator(corrected_text)
+    translated_raw_text = text_translator(full_text)
+    translated_corrected_text = text_translator(corrected_text)
 else:
-    translated_nutrient_text = full_text
-    translated_info_text = corrected_text
+    translated_raw_text = full_text
+    translated_corrected_text = corrected_text
 
-pathlib.Path(translated_nutrient_output_file).write_bytes(translated_nutrient_text.encode())
-pathlib.Path(translated_info_output_file).write_bytes(translated_info_text.encode())
+pathlib.Path(translated_nutrient_output_file).write_bytes(translated_raw_text.encode())
+pathlib.Path(translated_info_output_file).write_bytes(translated_corrected_text.encode())
 
-nutrient_documents = [Document(text=translated_nutrient_text)]
-info_documents = [Document(text=translated_info_text)]
+raw_documents = [Document(text=translated_raw_text)]
+corrected_documents = [Document(text=translated_corrected_text)]
 
 # load the LLM that we are going to use
-llm = OllamaLLM(model="llama3.1:8b", temperature = 0)
-#llm = OllamaLLM(model="llama3.3:latest", temperature = 0)
+llm = OllamaLLM(model="llama3.1:8b", temperature = 0.1)
+#llm = OllamaLLM(model="llama3.3:latest", temperature = 0.1)
 
 
 ########################
@@ -418,11 +432,10 @@ combined_results = {}
 splitter = SentenceSplitter(chunk_size=700)
 
 
-
 #  This is a class from the llama_index library that represents a vector store index for efficient retrieval
 #  of documents based on their semantic similarity.
 #vector_store_nutrients = VectorStoreIndex.from_documents(nutrient_documents, splitter=splitter)   
-vector_store_nutrients = VectorStoreIndex.from_documents(info_documents, splitter=splitter) 
+vector_store_nutrients = VectorStoreIndex.from_documents(corrected_documents, splitter=splitter) 
 
 # Build the query engine from the vector store index
 query_engine_for_nutrients = vector_store_nutrients.as_query_engine()
@@ -464,9 +477,11 @@ for prompt in prompts:
             if attempt == max_retries - 1:
                 print(f"Skipping prompt: {prompt[:50]} after {max_retries} attempts.")
 
+response_json = transform_json(combined_results)
+
 # Write combined results to file
 with open(response_file, "w", encoding='utf-8') as file:
-    json.dump(combined_results, file, indent=4, ensure_ascii=False)
+    json.dump(response_json, file, indent=4, ensure_ascii=False)
 
 
 

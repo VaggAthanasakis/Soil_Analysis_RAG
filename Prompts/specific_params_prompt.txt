@@ -1,4 +1,8 @@
-Identify and list each available Parameter: (C.E.C): Cation exchange capacity, (Relationship C/N), (E.S.P): Degree of alkaline, (S.A.R):Sodium absorption ratio
+Identify and list each available Parameter:
+    (C.E.C): Cation exchange capacity,
+    (Relationship C/N),
+    (E.S.P): Degree of alkaline, 
+    (S.A.R): Sodium absorption ratio
 along with its value, unit and measurement method in the format: Element: Value (Unit) method.
 
 The output must be a python dictionary. 
@@ -7,7 +11,7 @@ Example output format:
     "C.E.C": "value unit method",
     "Relationship C/N": "value unit method",
     "E.S.P": "value unit method",
-    "SAR": "value unit method"
+    "S.A.R": "value unit method"
 
 }
 
